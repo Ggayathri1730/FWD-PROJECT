@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Plan Journey</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+
+<style>
+
+body{
+height:100vh;
+margin:0;
+
+background-image:url("metro1.jpeg");
+background-size:cover;
+background-position:center;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-family:Segoe UI;
+}
+
+.route-card{
+
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(15px);
+
+width:650px;
+padding:40px;
+
+border-radius:20px;
+
+color:white;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+h2{
+text-align:center;
+margin-bottom:30px;
+}
+
+.row{
+display:flex;
+gap:20px;
+margin-bottom:20px;
+}
+
+.input-group{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+select{
+padding:12px;
+border-radius:10px;
+border:none;
+background:white;
+}
+
+.trip-buttons button,
+.time-buttons button{
+
+padding:10px 20px;
+margin:5px;
+
+border:none;
+border-radius:20px;
+
+background:#2d3e5f;
+color:white;
+cursor:pointer;
+}
+
+.trip-buttons button:hover,
+.time-buttons button:hover{
+background:#3a8dff;
+}
+
+.counter{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.counter button{
+
+width:35px;
+height:35px;
+
+border-radius:50%;
+border:none;
+
+background:#3a8dff;
+color:white;
+
+font-size:18px;
+}
+
+.counter input{
+width:60px;
+text-align:center;
+padding:10px;
+border-radius:10px;
+border:none;
+}
+
+.metro-btn{
+
+width:100%;
+padding:14px;
+
+border:none;
+border-radius:30px;
+
+background:linear-gradient(90deg,#00eaff,#3a8dff);
+
+color:white;
+font-size:16px;
+font-weight:bold;
+
+cursor:pointer;
+margin-top:20px;
+}
+
+.footer{
+
+position:fixed;
+bottom:0;
+width:100%;
+
+text-align:center;
+padding:15px;
+
+background:rgba(0,0,0,0.5);
+color:white;
+
+}
+.time-buttons button.active,
+.trip-buttons button.active{
+
+background:#3a8dff;
+box-shadow:0 0 10px #00eaff;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="route-card">
+
+<h2>📍 Plan Your Journey</h2>
+
+<div class="row">
+
+<div class="input-group">
+<label>Start Station</label>
+<select id="start">
+<option value="">Select</option>
+<option>Miyapur</option>
+<option>JNTU</option>
+<option>KPHB</option>
+<option>Kukatpally</option>
+<option>Ameerpet</option>
+<option>Secunderabad</option>
+<option>Nagole</option>
+<option>LB Nagar</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>Stop Station</label>
+<select id="end">
+<option value="">Select</option>
+<option>Miyapur</option>
+<option>JNTU</option>
+<option>KPHB</option>
+<option>Kukatpally</option>
+<option>Ameerpet</option>
+<option>Secunderabad</option>
+<option>Nagole</option>
+<option>LB Nagar</option>
+</select>
+</div>
+
+</div>
+
+<label>Trip Type</label>
+
+<div class="trip-buttons">
+
+<button onclick="setTrip('Single')">Single Way</button>
+<button onclick="setTrip('Round')">Round Trip</button>
+
+</div>
+
+<input type="hidden" id="trip">
+
+<br>
+
+<label>Time Slot</label>
+
+<div class="time-buttons">
+
+<button onclick="setTime('Morning')">Morning</button>
+<button onclick="setTime('Afternoon')">Afternoon</button>
+<button onclick="setTime('Evening')">Evening</button>
+<button onclick="setTime('Night')">Night</button>
+
+</div>
+
+<input type="hidden" id="time">
+
+<br>
+
+<label>Passengers</label>
+
+<div class="counter">
+
+<button onclick="decrease()">-</button>
+
+<input type="number" id="count" value="1" min="1" max="6">
+
+<button onclick="increase()">+</button>
+
+</div>
+
+<button class="metro-btn" onclick="continueBooking()">CONTINUE →</button>
+
+<p id="error"></p>
+
+</div>
+
+<div class="footer">
+© 2026 INTELLIGENT METRO FLOW OPTIMIZATION PLATFORM 
+</div>
+
+</body>
+</html>

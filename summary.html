@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>BOOKING SUMMARY</title>
+
+
+ <style>
+    .container{
+background:rgb(129, 141, 233);
+padding:30px;
+width:500px;
+margin:auto;
+border-radius:10px;
+}
+        *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, sans-serif;
+}
+
+/* Background */
+
+body{
+height:100vh;
+background-image:url("metro3.jpeg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+display:flex;
+flex-direction:column;
+}
+
+/* Navbar */
+
+.navbar{
+background:rgba(87, 126, 174, 0.7);
+color:white;
+padding:15px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
+}
+
+.menu a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-size:15px;
+}
+
+.menu a:hover{
+color:#00e5ff;
+}
+
+/* Hero Section */
+
+.hero{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* Login Box */
+
+.login-box{
+
+width:360px;
+padding:40px;
+
+background:rgba(133, 169, 216, 0.7);
+backdrop-filter:blur(15px);
+
+border-radius:20px;
+
+box-shadow:0 10px 30px rgba(91, 121, 160, 0.7);
+
+text-align:center;
+
+color:white;
+}
+
+/* Title */
+
+.login-box h2{
+margin-bottom:25px;
+font-size:24px;
+align-items: center;
+}
+
+/* Inputs */
+
+input{
+
+width:100%;
+padding:14px;
+margin:12px 0;
+
+border-radius:10px;
+border:none;
+outline:none;
+
+background:rgba(255,255,255,0.7);
+
+font-size:14px;
+
+}
+
+/* Button */
+
+button{
+
+width:100%;
+padding:14px;
+
+border:none;
+border-radius:30px;
+
+background:linear-gradient(90deg,#00e5ff,#3a8dff);
+
+color:white;
+font-size:16px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+button:hover{
+
+transform:scale(1.05);
+box-shadow:0 0 15px #00e5ff;
+
+}
+
+/* Error message */
+
+#error{
+margin-top:10px;
+color:red;
+}
+
+/* Footer */
+
+.footer{
+background:rgba(87, 126, 174, 0.7);
+color:white;
+text-align:center;
+padding:12px;
+font-size:14px;
+}
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>METRO BOOKING SUMMARY</h2>
+
+<div id="summary"></div>
+
+</div>
+<script>
+
+let data = localStorage.getItem("metroData");
+
+if(data){
+
+data = JSON.parse(data);
+
+document.getElementById("summary").innerHTML = `
+Start Station : ${data.start} <br><br>
+End Station : ${data.end} <br><br>
+Trip Type : ${data.trip} <br><br>
+Travel Time : ${data.time} <br><br>
+Passengers : ${data.count}
+`;
+
+// Send data to backend database
+
+fetch("http://localhost:8080/save",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+})
+.then(res=>res.text())
+.then(result=>console.log("Saved to DB:",result))
+.catch(err=>console.error("DB Error:",err));
+
+}else{
+
+document.getElementById("summary").innerHTML="No booking data found.";
+
+}
+
+</script>
+
+</body>
+</html>
